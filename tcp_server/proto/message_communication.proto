@@ -1,0 +1,19 @@
+package communication;
+
+option cc_generic_services = true;
+
+message Void {
+}
+
+message Message {
+	required bytes content = 1;
+}
+
+service CommunicationService {
+	rpc send_message(Message) returns(Void);
+}
+
+service ReplyService {
+	rpc reply_message(Message) returns(Void);
+}
+
