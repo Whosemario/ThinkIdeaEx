@@ -21,11 +21,21 @@ message("   CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 message("   CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 
 # header dir
-include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/msgpack)
 
+# for asio
+add_definitions(
+	-DASIO_STANDALONE 
+	-DASIO_SEPARATE_COMPILATION 
+	#-DASIO_HAS_BOOST_BIND
+	#-DASIO_HAS_BOOST_DATE_TIME
+)
+
 # sub module
-#add_subdirectory(src)
+add_subdirectory(glog)
+add_subdirectory(asio)
+add_subdirectory(rpc)
 add_subdirectory(tests)
 
 message("-----------------------------")
