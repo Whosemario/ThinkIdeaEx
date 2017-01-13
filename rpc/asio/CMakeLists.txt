@@ -17,5 +17,5 @@ set(SRCS
 add_library(asio STATIC ${SRCS})
 if(WIN32)
 else()
-set_target_properties(asio PROPERTIES COMPILE_FLAGS "-std=c++14")
+set_target_properties(asio PROPERTIES COMPILE_FLAGS "-std=c++11")
 endif()

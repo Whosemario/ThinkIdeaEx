@@ -9,6 +9,7 @@ else()
 endif()
 
 message("--------- Configure ---------")
+message("   BOOST_DIR: ${BOOST_DIR}")
 message("   CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 
 if (WIN32) 

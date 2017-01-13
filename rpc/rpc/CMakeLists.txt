@@ -10,6 +10,6 @@ set(SRCS
 add_library(rpc STATIC ${SRCS})
 if(WIN32)
 else()
-set_target_properties(rpc PROPERTIES COMPILE_FLAGS "-std=c++14")
+#set_target_properties(rpc PROPERTIES COMPILE_FLAGS "-std=c++1y")
 endif()
 target_link_libraries(rpc glog)

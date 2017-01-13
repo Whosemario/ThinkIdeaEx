@@ -47,7 +47,7 @@ struct function_traits_impl<Ret(*)(Args...)> : function_traits_impl<Ret(Args...)
 template<typename Handler>
 void process(Handler&& handler) {
 	std::cout << std::is_void<typename function_traits<Handler>::return_type>::value << std::endl;
-	std::cout << std::is_same<int, typename function_traits<Handler>::args<0>::type>::value << std::endl;
+	std::cout << std::is_same<int, typename function_traits<Handler>::template args<0>::type>::value << std::endl;
 }
 
 int func(float a) { return 1; }
@@ -58,7 +58,7 @@ void func2(int a, bool b, const std::string& s) {
 
 template<typename Handler, typename TupleArgs, std::size_t ... Is>
 void call_func_impl(Handler&& handler, TupleArgs&& tuple_args, std::index_sequence<Is...>) {
-	handler(std::forward<std::tuple_element_t<Is, std::remove_reference_t<TupleArgs>>>(std::get<Is>(tuple_args))...);
+    handler(std::forward<typename std::tuple_element<Is, std::remove_reference_t<TupleArgs>>::type>(std::get<Is>(tuple_args))...);
 }
 
 template<typename Handler>
