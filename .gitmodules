@@ -1,3 +1,6 @@
 [submodule "greenlet_ex/third_lib/glog"]
 	path = greenlet_ex/third_lib/glog
 	url = https://github.com/google/glog.git
+[submodule "rpc/glog"]
+	path = rpc/glog
+	url = https://github.com/google/glog.git
