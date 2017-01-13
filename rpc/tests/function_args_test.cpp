@@ -44,6 +44,11 @@ template<typename Ret, typename ... Args>
 struct function_traits_impl<Ret(*)(Args...)> : function_traits_impl<Ret(Args...)> {
 };
 
+template<typename Ret, typename Cls, typename ... Args>
+struct function_traits_impl<Ret(Cls::*)(Args...)> : function_traits_impl<Ret(Args...)> {
+    
+};
+
 template<typename Handler>
 void process(Handler&& handler) {
 	std::cout << std::is_void<typename function_traits<Handler>::return_type>::value << std::endl;
@@ -75,6 +80,13 @@ void process2(Handler&& handler, const std::string& str) {
 		index{});
 }
 
+class A {
+public:
+    void func(int a, bool b, const std::string& s) {
+        
+    }
+};
+
 int main(int args, char* argv[]) {
 	std::tuple<int, bool, std::string> t(1, false, "hi");
 	std::stringstream buffer;
@@ -84,6 +96,8 @@ int main(int args, char* argv[]) {
 	std::string s(buffer.str());
 
 	process2(func2, s);
+    
+    process(&A::func);
 
 	return 1;
 }
