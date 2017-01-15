@@ -3,7 +3,11 @@ cmake_minimum_required(VERSION 2.6)
 set(SRCS
 	rpc_stream.hpp
 	rpc_stream.cpp
-	)
+	rpc_service.hpp
+	rpc_service.cpp
+	rpc_request.hpp
+	rpc_request.cpp
+)
 
 add_library(rpc STATIC ${SRCS})
 if(WIN32)
