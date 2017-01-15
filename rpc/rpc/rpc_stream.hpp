@@ -18,7 +18,7 @@ protected:
 	}
 
 	pos_type seekpos(pos_type off, std::ios_base::openmode mode) {
-        return _seekoff(off, std::ios_base::cur, mode);
+        return _seekoff(off, std::ios_base::beg, mode);
 	}
 private:
     pos_type _seekoff(pos_type off, std::ios_base::seekdir way, std::ios_base::openmode mode) {

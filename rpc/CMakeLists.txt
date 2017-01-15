@@ -29,9 +29,12 @@ include_directories(${PROJECT_SOURCE_DIR}/msgpack)
 add_definitions(
 	-DASIO_STANDALONE 
 	-DASIO_SEPARATE_COMPILATION 
-	#-DASIO_HAS_BOOST_BIND
+	-DASIO_HAS_BOOST_BIND
 	#-DASIO_HAS_BOOST_DATE_TIME
 )
+
+# for boost
+include_directories(${BOOST_DIR})
 
 # sub module
 add_subdirectory(glog)
