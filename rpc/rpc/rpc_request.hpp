@@ -28,32 +28,14 @@ public:
         return total_size_;
     }
     
-    std::size_t parse(const char* data, std::size_t sz) {
-        std::size_t orig = sz;
-        while(sz) {
-            if(status_ == ST_HEAD) {
-                if(sz >= resume_size_) {
-                    stream_ptr_->write_stream().write(data, resume_size_);
-                    sz -= resume_size_;
-                    status_ = ST_BODY;
-                    data += resume_size_;
-                    resume_size_ = total_size();
-                } else {
-                    stream_ptr_->write_stream().write(data, sz);
-                    resume_size_ -= sz;
-                    sz = 0;
-                    break;
-                }
-            } else if(status_ == ST_BODY) {
-                if(sz >= resume_size_) {
-                    
-                }
-            } else {
-                break;
-            }
-        }
-        return orig - sz;
-    }
+	std::size_t parse(const char* data, std::size_t sz);
+
+	void reset() {
+		stream_ptr_->reset();
+		status_ = ST_HEAD;
+		resume_size_ = kTHeadSize;
+		total_size_ = 0;
+	}
     
 private:
     const static std::size_t kTHeadSize = 4;
