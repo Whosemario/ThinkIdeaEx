@@ -25,7 +25,7 @@ public:
         stream_ptr_->write_stream().write(method.c_str(), method_sz);
         msgpack::pack(stream_ptr_->write_stream(), t);
         total_sz = stream_ptr_->buf().size() - sizeof(total_sz);
-        stream_ptr_->write_stream().seekp(0);
+        stream_ptr_->write_stream().seekp(0, std::ios_base::beg);
         stream_ptr_->write_stream().write((char*)&total_sz, sizeof(total_sz));
     }
     
