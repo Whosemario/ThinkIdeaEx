@@ -18,7 +18,7 @@ enum request_status {
 class rpc_request : public asio::noncopyable {
 public:
     rpc_request():
-        status_(ST_HEAD), resume_size_(kTHeadSize),
+        status_(ST_HEAD), cosume_size_(kTHeadSize),
         total_size_(0), stream_ptr_(new rpc_stream()) {}
     
     std::size_t total_size() {
@@ -33,16 +33,22 @@ public:
 	void reset() {
 		stream_ptr_->reset();
 		status_ = ST_HEAD;
-		resume_size_ = kTHeadSize;
+		cosume_size_ = kTHeadSize;
 		total_size_ = 0;
 	}
+    
+    bool is_completed() const { return status_ == ST_END; }
+    
+    std::string method() const {
+        return "";
+    }
     
 private:
     const static std::size_t kTHeadSize = 4;
     const static std::size_t kMHeadSize = 1;
     request_status status_;
-    std::size_t resume_size_;
-    std::size_t total_size_;
+    std::size_t cosume_size_;
+    uint32_t total_size_;
     rpc_stream_ptr stream_ptr_;
 };
     
