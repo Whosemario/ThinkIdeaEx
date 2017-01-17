@@ -37,7 +37,7 @@ private:
             }
             
             if(offset >= 0 && egptr() - eback() >= offset) {
-                setg(eback(), gptr() + offset, egptr());
+                setg(eback(), eback() + offset, egptr());
                 ret = offset;
             }
         } else if(mode & std::ios_base::out) {
