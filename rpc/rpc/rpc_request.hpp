@@ -1,10 +1,13 @@
 /*
  */
 
+#pragma once
+
 #include "rpc/rpc_stream.hpp"
 
 #include <asio/detail/noncopyable.hpp>
 #include <string>
+#include <tuple>
 
 namespace hex_engine {
 namespace rpc {
@@ -21,10 +24,10 @@ public:
         status_(ST_HEAD), cosume_size_(kTHeadSize),
         total_size_(0), stream_ptr_(new rpc_stream()) {}
     
-    std::size_t total_size() {
+    uint32_t total_size() {
         if(total_size_) return total_size_;
         stream_ptr_->read_stream().seekg(0, std::ios_base::beg);
-        stream_ptr_->read_stream().read((char*)total_size_, kTHeadSize);
+        stream_ptr_->read_stream().read((char*)(&total_size_), kTHeadSize);
         return total_size_;
     }
     
@@ -39,9 +42,17 @@ public:
     
     bool is_completed() const { return status_ == ST_END; }
     
-    std::string method() const {
-        return "";
+    std::tuple<std::string, std::string> method_and_args() {
+		stream_ptr_->read_stream().seekg(kTHeadSize, std::ios_base::beg);
+		uint8_t method_sz = 0;
+		stream_ptr_->read_stream().read((char*)(&method_sz), kMHeadSize);
+		assert(method_sz);
+		char* p = stream_ptr_->c_str();
+		return std::make_tuple(
+					std::string(p, method_sz), 
+					std::string(p+method_sz, total_size() - kMHeadSize - method_sz));
     }
+
     
 private:
     const static std::size_t kTHeadSize = 4;

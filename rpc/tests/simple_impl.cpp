@@ -48,6 +48,7 @@ int main(int args, char* argv[])
     
     std::cout << total_sz << std::endl;
     
+	std::cout << ptr->c_str() << std::endl;
     
     /*
     //std::cout << service.stream_ptr()->buf().size() << std::endl;

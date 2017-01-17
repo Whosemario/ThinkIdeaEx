@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 set(SRCS
+	function_traits.hpp
 	rpc_stream.hpp
 	rpc_stream.cpp
 	rpc_service.hpp
