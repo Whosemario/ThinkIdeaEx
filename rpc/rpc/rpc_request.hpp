@@ -44,11 +44,10 @@ public:
     
     std::tuple<std::string, std::string> method_and_args() {
 		stream_ptr_->read_stream().seekg(kTHeadSize, std::ios_base::beg);
-		char* p = stream_ptr_->c_str();
 		uint8_t method_sz = 0;
 		stream_ptr_->read_stream().read((char*)(&method_sz), kMHeadSize);
 		assert(method_sz);
-		p = stream_ptr_->c_str();
+		char* p = stream_ptr_->c_str();
 		return std::make_tuple(
 					std::string(p, method_sz), 
 					std::string(p+method_sz, total_size() - kMHeadSize - method_sz));

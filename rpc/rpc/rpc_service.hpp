@@ -34,6 +34,8 @@ struct handler_impl : public handler_base<Cls> {
 		using args_tuple = typename function_traits<Handler>::tuple_type;
 		args_tuple t;
 		msgpack::unpack(args_str.c_str(), args_str.size()).get().convert(t);
+        using index = std::make_index_sequence<std::tuple_size<std::remove_reference_t<args_tuple>>::value>;
+        call_impl(self, t, index{});
 	}
 
 	template<typename TupleArgs, std::size_t ... Is>
