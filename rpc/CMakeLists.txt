@@ -41,5 +41,6 @@ add_subdirectory(glog)
 add_subdirectory(asio)
 add_subdirectory(rpc)
 add_subdirectory(tests)
+add_subdirectory(proto)
 
 message("-----------------------------")
